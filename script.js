@@ -1,8 +1,8 @@
+// https://www.youtube.com/watch?v=kBMnD_aElCQ & https://www.youtube.com/watch?v=jS7iB9mRvcc
 var grid = document.getElementById("grid");
 generateGrid();
 
 function generateGrid() {
-  //generate 10 by 10 grid
   grid.innerHTML="";
   for (var i=0; i<10; i++) {
     var row = grid.insertRow(i);
@@ -18,7 +18,6 @@ function generateGrid() {
 }
 
 function addMines() {
-  //Add mines randomly
   for (var i=0; i<20; i++) {
     var row = Math.floor(Math.random() * 10);
     var col = Math.floor(Math.random() * 10);
@@ -28,7 +27,6 @@ function addMines() {
 }
 
 function revealMines() {
-    //Highlight all mines in red
     for (var i=0; i<10; i++) {
       for(var j=0; j<10; j++) {
         var cell = grid.rows[i].cells[j];
@@ -51,13 +49,11 @@ function checkLevelCompletion() {
 }
 
 function clickCell(cell) {
-  //Check if the end-user clicked on a mine
   if (cell.getAttribute("data-mine")=="true") {
     revealMines();
     alert("Game Over");
   } else {
     cell.className="clicked";
-    //Count and display the number of adjacent mines
     var mineCount=0;
     var cellRow = cell.parentNode.rowIndex;
     var cellCol = cell.cellIndex;
@@ -68,10 +64,8 @@ function clickCell(cell) {
     }
     cell.innerHTML=mineCount;
     if (mineCount==0) { 
-      //Reveal all adjacent cells because they do not have a mine
       for (var i=Math.max(cellRow-1,0); i<=Math.min(cellRow+1,9); i++) {
         for(var j=Math.max(cellCol-1,0); j<=Math.min(cellCol+1,9); j++) {
-          //Recursive Call
           if (grid.rows[i].cells[j].innerHTML=="") clickCell(grid.rows[i].cells[j]);
         }
       }
